@@ -1,12 +1,20 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
+
 module.exports = {
-    mode:'development',
-    devServer:{
+    mode: 'development',
+    devServer: {
         port: 1000
     },
-    plugins:[
+    plugins: [
+        new ModuleFederationPlugin({
+            name: 'container',
+            remotes: {
+                barchartApp: 'barchartApp@http://localhost:1001/remoteEntry.js'
+            }
+        }),
         new HtmlWebpackPlugin({
-            template:'./public/index.html'
+            template: './public/index.html'
         })
     ]
 }
