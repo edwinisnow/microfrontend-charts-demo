@@ -4,15 +4,16 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 module.exports = {
     mode: 'development',
     devServer: {
-        port: 1000
+        port: 1002
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: 'container',
-            remotes: {
-                barchartApp: 'barchartApp@http://localhost:1001/remoteEntry.js',
-                linechartApp: 'linechartApp@http://localhost:1002/remoteEntry.js'
+            name: 'linechartApp',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './LinechartIndex': './src/index'
             }
+
         }),
         new HtmlWebpackPlugin({
             template: './public/index.html'
